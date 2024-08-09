@@ -1,11 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const LinksItems = () => {
   return (
-    <div className='flex-1 gap-5'>
-      <Link to={"/"} className='text-xl btn btn-ghost '>
-        HeroesApp
-      </Link>
+    <div className='flex flex-1 gap-5'>
       <NavLink
         to={"../gallery/marvel"}
         className={({ isActive }) =>

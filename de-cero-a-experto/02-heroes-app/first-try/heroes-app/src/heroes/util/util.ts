@@ -1,2 +1,4 @@
-export const PUBLISHED_MARVEL = "Marvel Comics";
-export const PUBLISHED_DC = "DC Comics";
+export const published = {
+  marver: "Marvel Comics",
+  dc: "DC Comics",
+};

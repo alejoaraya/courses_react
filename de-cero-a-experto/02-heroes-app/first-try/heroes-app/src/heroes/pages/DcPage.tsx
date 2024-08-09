@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { HeroesList, Title } from "../components";
 import { getHeroesByPublished } from "../helpers";
 
@@ -6,7 +7,7 @@ interface Props {
 }
 
 export const DcPage = ({ published }: Props) => {
-  const heroes = getHeroesByPublished(published);
+  const heroes = useMemo(() => getHeroesByPublished(published), [published]);
 
   return (
     <div className='grid grid-cols-1 gap-10'>
