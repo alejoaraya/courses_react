@@ -18,6 +18,10 @@ export const startGoogleSignIn = () => {
   return async (dispatch: Dispatch) => {
     dispatch(checkingCredentials());
     const result = await signInWithGoogle();
+
+    if (result?.errorMessage === undefined)
+      throw new Error("result is undefined");
+
     if (!result?.ok) return dispatch(logout(result.errorMessage));
 
     dispatch(
@@ -35,6 +39,10 @@ export const startSignInWithEmailPassword = ({ email = "", password = "" }) => {
   return async (dispatch: Dispatch) => {
     dispatch(checkingCredentials());
     const result = await signInWithEmailPassword({ email, password });
+
+    if (result?.errorMessage === undefined)
+      throw new Error("result is undefined");
+
     if (!result?.ok) return dispatch(logout(result.errorMessage));
 
     dispatch(
