@@ -7,12 +7,12 @@ import {
 } from "../../../firebase/providers";
 import { checkingCredentials, login, logout } from "./authSlice";
 
-export const checkingAuthentication = ({ email = "", password = "" }) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(checkingCredentials());
-    dispatch(createAnAccount(email, password));
-  };
-};
+// export const checkingAuthentication = ({ email = "", password = "" }) => {
+//   return async (dispatch: Dispatch) => {
+//     dispatch(checkingCredentials());
+//     dispatch(createAnAccount(email, password));
+//   };
+// };
 
 export const startGoogleSignIn = () => {
   return async (dispatch: Dispatch) => {

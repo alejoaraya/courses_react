@@ -5,9 +5,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore/lite";
-import { Note } from "../@types/types";
-import { FirebaseAuth, FirebaseDB } from "./config";
+import { FirebaseAuth } from "./config";
 
 const googleAuthProvider = new GoogleAuthProvider();
 
@@ -23,12 +21,13 @@ export const signInWithGoogle = async () => {
       email,
       photoURL,
     };
-  } catch (error) {
-    console.error(error);
-    return {
-      ok: false,
-      errorMessage: error.message,
-    };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        ok: false,
+        errorMessage: error.message,
+      };
+    }
   }
 };
 
@@ -43,7 +42,11 @@ export const registerUserWithEmailAndPassword = async ({
       email,
       password
     );
+
     const { uid, photoURL } = res.user;
+
+    if (!FirebaseAuth.currentUser)
+      throw new Error("$FirebaseAuth.currentUser is null");
 
     await updateProfile(FirebaseAuth.currentUser, { displayName, photoURL });
 
@@ -55,8 +58,13 @@ export const registerUserWithEmailAndPassword = async ({
       uid,
       photoURL,
     };
-  } catch (error) {
-    return { ok: false, errorMessage: error.message };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        ok: false,
+        errorMessage: error.message,
+      };
+    }
   }
 };
 
@@ -76,12 +84,13 @@ export const signInWithEmailPassword = async ({
       email,
       photoURL,
     };
-  } catch (error) {
-    console.error(error);
-    return {
-      ok: false,
-      errorMessage: error.message,
-    };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        ok: false,
+        errorMessage: error.message,
+      };
+    }
   }
 };
 

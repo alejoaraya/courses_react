@@ -1,6 +1,6 @@
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material";
 import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/hooks";
 import { startLogOutUser } from "../../../store/slice/auth/authThunks";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const NavBar = ({ drawerWidth = 240 }: Props) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onLogOut = () => {
     dispatch(startLogOutUser());

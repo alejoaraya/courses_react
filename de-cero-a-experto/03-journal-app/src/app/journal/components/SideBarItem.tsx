@@ -1,23 +1,23 @@
 import { TurnedInNot } from "@mui/icons-material";
 import {
+  Grid,
   ListItem,
   ListItemButton,
-  Grid,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { setActiveNote } from "../../../store";
 
-import { Note } from "../../../@types/types";
 import { useMemo } from "react";
+import { Note } from "../../../@types/types";
+import { useAppDispatch } from "../../../hooks/hooks";
 
 interface Props {
   note: Note;
 }
 
 export const SideBarItem = ({ note }: Props) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onActiveNote = () => {
     dispatch(setActiveNote(note));

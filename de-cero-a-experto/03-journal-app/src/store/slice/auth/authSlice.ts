@@ -12,11 +12,11 @@ interface AuthState {
 
 const initialState: AuthState = {
   status: "not-authenticated",
-  uid: null,
-  displayName: null,
-  email: null,
-  photoURL: null,
-  errorMessage: null,
+  uid: "",
+  displayName: "",
+  email: "",
+  photoURL: "",
+  errorMessage: "",
 };
 
 export const authSlice = createSlice({

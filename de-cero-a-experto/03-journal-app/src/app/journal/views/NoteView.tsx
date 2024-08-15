@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   DeleteOutlined,
   SaveOutlined,
@@ -5,9 +6,8 @@ import {
 } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { ChangeEvent, LegacyRef, useEffect, useMemo, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../../hooks/hooks";
+import { ChangeEvent, useEffect, useMemo, useRef } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import {
   startDeleteNote,
   startUpdateNote,
@@ -22,15 +22,15 @@ interface Credentials {
 
 export const NoteView = () => {
   const { noteActive } = useAppSelector((state) => state.journal);
-  const dispatch = useDispatch();
-  const fileInputRef = useRef();
+  const dispatch = useAppDispatch();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const initialValues: Credentials = {
     title: noteActive?.title || "",
     body: noteActive?.body || "",
   };
 
-  const { handleChange, handleSubmit, values, setValues } = useFormik({
+  const { handleChange, values, setValues } = useFormik({
     initialValues,
     onSubmit: () => {},
   });
@@ -55,7 +55,8 @@ export const NoteView = () => {
     [noteActive?.date]
   );
 
-  const onFileInputChange = ({ target }: ChangeEvent) => {
+  const onFileInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (!target.files) throw new Error("$Files is empty");
     dispatch(startUploadImages(target.files));
   };
 
@@ -83,7 +84,7 @@ export const NoteView = () => {
           onChange={onFileInputChange}
         />
         <Button
-          onClick={() => fileInputRef.current.click()}
+          onClick={() => fileInputRef.current?.click()}
           color='primary'
           sx={{ p: 2 }}
         >

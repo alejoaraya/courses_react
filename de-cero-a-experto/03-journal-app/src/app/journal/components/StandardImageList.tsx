@@ -3,7 +3,8 @@ import { useAppSelector } from "../../../hooks/hooks";
 
 export default function StandardImageList() {
   const { noteActive } = useAppSelector((state) => state.journal);
-  if (!noteActive) throw new Error("$noteActive is NULL");
+  if (!noteActive || noteActive.imageURLs === undefined)
+    throw new Error("$noteActive is empty");
 
   return (
     <ImageList sx={{ width: "100%", height: 500 }} cols={3} rowHeight={250}>
