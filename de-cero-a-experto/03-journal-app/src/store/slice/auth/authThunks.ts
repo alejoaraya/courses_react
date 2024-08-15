@@ -64,12 +64,16 @@ export const startCreatingUserWithEmailPassword = ({
   return async (dispatch: Dispatch) => {
     dispatch(checkingCredentials());
 
-    const { photoURL, uid, ok, errorMessage } =
-      await registerUserWithEmailAndPassword({
-        email,
-        password,
-        displayName,
-      });
+    const res = await registerUserWithEmailAndPassword({
+      email,
+      password,
+      displayName,
+    });
+
+    if (!res || res.errorMessage === undefined)
+      throw new Error("variables of $res are empties");
+
+    const { photoURL, uid, ok, errorMessage } = res;
 
     if (!ok) return dispatch(logout(errorMessage));
 

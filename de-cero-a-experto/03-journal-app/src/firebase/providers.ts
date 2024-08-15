@@ -31,21 +31,11 @@ export const signInWithGoogle = async () => {
   }
 };
 
-interface RegisterUserResult {
-  ok: boolean;
-  email: string;
-  password: string;
-  displayName: string;
-  uid: string;
-  photoURL: string;
-  errorMessage?: string;
-}
-
 export const registerUserWithEmailAndPassword = async ({
   email = "",
   password = "",
   displayName = "",
-}): Promise<RegisterUserResult> => {
+}) => {
   try {
     const res = await createUserWithEmailAndPassword(
       FirebaseAuth,
@@ -57,6 +47,7 @@ export const registerUserWithEmailAndPassword = async ({
 
     if (!FirebaseAuth.currentUser)
       throw new Error("$FirebaseAuth.currentUser is null");
+    if (!photoURL) throw new Error("$photoURL is null");
 
     await updateProfile(FirebaseAuth.currentUser, { displayName, photoURL });
 
